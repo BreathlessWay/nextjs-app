@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+.vertical-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+.overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+}

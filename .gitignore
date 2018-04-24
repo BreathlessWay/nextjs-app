@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+# 编辑器
+.idea/
+.vscode/
+
+# 生成文件
+.next/
+production-server/
+
+# 项目依赖
+node_modules/

@@ -1,0 +1,6 @@
+{
+  "integrates_react-i18next": "react-i18next 例子",
+  "pureComponent": "纯组件",
+  "extendedComponent": "继承组件",
+  "transComponent": "transComponent"
+}

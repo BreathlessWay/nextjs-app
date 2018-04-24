@@ -1,0 +1,17 @@
+{
+  "name": "足球魔方",
+  "short_name": "足球魔方",
+  "icons": [
+    {
+      "src": "icon/icon-96x96.jpeg",
+      "sizes": "96x96"
+    },
+    {
+      "src": "icon/icon-144x144.jpeg",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#2196f3",
+  "display": "standalone"
+}
