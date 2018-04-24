@@ -1,5 +1,9 @@
 ## Next.js
 
+### 项目介绍
+next.js的项目框架，提供next.js  scss  typescript  mobx  axios  antd-mobile  express  i18next  postcss  sentry工具集成
+
+
 安装依赖
 > npm install
 
@@ -15,7 +19,7 @@
 
 ## 技术文档
 
-1. [nextjs](https://learnnextjs.com/),react的服务端渲染框架
+1. [nextjs](https://learnnextjs.com/)，react的服务端渲染框架
 2. [typescript](https://www.tslang.cn/)，js的语言超集
 3. [mobx](http://cn.mobx.js.org/)，react的状态管理库
 4. [axios](https://www.kancloud.cn/yunye/axios/234845)，xmlhttprequest请求库
@@ -53,4 +57,4 @@
  
  7. pxtorem：需要忽略的px将px大写P，比如`line-height: 13Px;`，该属性不会被转为rem
  
- 8. i18next/react-i18next：国际化,koa暂时无法实现，所以换会express
+ 8. i18next/react-i18next：国际化，koa暂时无法实现，所以用express做服务端
