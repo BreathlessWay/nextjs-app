@@ -1,14 +1,30 @@
 export default {
   getStorage (key: string) {
-    return JSON.parse(localStorage.getItem(key));
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+      alert('请关闭无痕模式');
+    }
   },
   setStorage (key: string, value: any) {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      alert('请关闭无痕模式');
+    }
   },
   removeStorage (key: string) {
-    localStorage.removeItem('key');
+    try {
+      localStorage.removeItem('key');
+    } catch (e) {
+      alert('请关闭无痕模式');
+    }
   },
   clearStorage () {
-    localStorage.clear();
+    try {
+      localStorage.clear();
+    } catch (e) {
+      alert('请关闭无痕模式');
+    }
   }
 };

@@ -1,6 +1,16 @@
 {
-  "welcome": "欢迎来到next.js",
-  "link": {
-    "gotoPage2": "去下一页"
+  "title": {
+    "one": "每日赛事精选",
+    "two": "每日活动精选"
+  },
+  "tab": {
+    "one": "AI球",
+    "two": "理财",
+    "three": "奖堂",
+    "four": "情报",
+    "five": "竞彩",
+    "six": "客服",
+    "seven": "关注",
+    "eight": "游戏"
   }
 }

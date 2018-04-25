@@ -1,19 +1,27 @@
 import * as React from 'react';
 import './style.scss';
-import Layout from 'components/Layout/index';
+import Layout from 'components/Layout';
 import { Provider } from 'mobx-react';
-import { Flex, Drawer, List } from 'antd-mobile';
-import TabComponent from 'components/TabComponent';
-import AddScreenComponent from 'components/AddScreenComponent';
 import { initStore, StoreTypes } from 'store/store';
 import withSentry from 'components/withSentry';
+import withI18next from 'components/withI18next';
+import { I18n } from 'types/i18n';
 
-interface PropType extends StoreTypes {
+interface PropType extends StoreTypes, I18n {
   isServer: boolean,
-  title: string
+  title: string,
 }
 
-class Index extends React.Component<PropType, {}> {
+interface StateType {
+  show: boolean,
+  menu: boolean,
+  item: { [propsName: string]: any }
+}
+
+@withSentry
+@withI18next(['home', 'common'])
+export default class IndexPage extends React.Component<PropType, StateType> {
+
   store: StoreTypes;
 
   constructor (props: PropType) {
@@ -35,16 +43,13 @@ class Index extends React.Component<PropType, {}> {
   }
 
   render () {
+    const {t} = this.props;
     return (
       <Provider store={this.store}>
-        <Layout title={this.props.title}>
-          <article className="index-container">
-          首页
-          </article>
+        <Layout title={this.props.title} t={t}>
+          index
         </Layout>
       </Provider>
     );
   }
 }
-
-export default withSentry(Index);

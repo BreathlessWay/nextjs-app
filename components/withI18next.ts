@@ -1,6 +1,6 @@
 import { translate } from 'react-i18next';
 
-const {getInitialProps, I18n} = require('./i18n');
+const {getInitialProps, I18n} = require('../libs/i18n');
 
 const withI18next = (namespaces = ['common']) => ComposedComponent => {
   const Extended = translate(namespaces, {i18n: I18n, wait: process.browser})(

@@ -18,6 +18,10 @@
   text-align: center;
 }
 
+.am-flexbox .am-flexbox-item {
+  margin-left: 0;
+}
+
 table {
   width: 100%;
 }
@@ -28,4 +32,9 @@ table {
   display: inline-block;
   white-space: nowrap;
   vertical-align: middle;
+}
+
+.am-tab-bar-bar .am-tab-bar-tab-title {
+  font-size: 10px;
+  margin-top: 4px;
 }

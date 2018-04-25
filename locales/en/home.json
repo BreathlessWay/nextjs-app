@@ -1,6 +1,16 @@
 {
-  "welcome": "welcome to next.js",
-  "link": {
-    "gotoPage2": "Go to page 2"
+  "title": {
+    "one": "Daily highlights",
+    "two": "Daily activity selection"
+  },
+  "tab": {
+    "one": "AI ball",
+    "two": "Financing",
+    "three": "Award",
+    "four": "Intelligence",
+    "five": "Color",
+    "six": "Service",
+    "seven": "Attention",
+    "eight": "Game"
   }
 }

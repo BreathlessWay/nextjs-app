@@ -6,6 +6,7 @@
 # 生成文件
 .next/
 production-server/
+locales/*/*.missing.json
 
 # 项目依赖
 node_modules/

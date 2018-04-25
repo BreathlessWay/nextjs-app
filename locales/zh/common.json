@@ -1,6 +1,12 @@
 {
-  "integrates_react-i18next": "react-i18next 例子",
-  "pureComponent": "纯组件",
-  "extendedComponent": "继承组件",
-  "transComponent": "transComponent"
+  "menu": {
+    "one": "比分",
+    "two": "魔方",
+    "three": "首页",
+    "four": "会员",
+    "five": "资讯"
+  },
+  "login": {
+    "one": "未登录"
+  }
 }

@@ -23,6 +23,7 @@
     "arrow-parens": false,
     "jsx-no-lambda": false,
     "jsx-curly-spacing": false,
-    "jsx-alignment": false
+    "jsx-alignment": false,
+    "jsx-wrap-multiline": false
   }
 }

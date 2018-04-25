@@ -4,5 +4,8 @@
     "module": "commonjs",
     "outDir": "production-server/"
   },
-  "include": ["server.ts"]
+  "include": [
+    "server.ts",
+    "./libs/i18n.ts"
+  ]
 }

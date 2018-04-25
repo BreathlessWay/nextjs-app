@@ -3,15 +3,17 @@
   "short_name": "足球魔方",
   "icons": [
     {
-      "src": "icon/icon-96x96.jpeg",
-      "sizes": "96x96"
+      "src": "icon/icon-29x29.png",
+      "sizes": "29x29",
+      "type": "image/png"
     },
     {
-      "src": "icon/icon-144x144.jpeg",
-      "sizes": "144x144"
+      "src": "icon/icon-58x58.png",
+      "sizes": "58x58",
+      "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
-  "background_color": "#2196f3",
+  "start_url": "/",
+  "background_color": "#3A0B90",
   "display": "standalone"
 }

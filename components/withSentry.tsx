@@ -4,8 +4,8 @@ import 'style/common.scss';
 
 const SENTRY_DSN = '';
 
-export default function withSentry (Child) {
-  return class WrappedComponent extends React.Component<{ [propName: string]: any }, { error: Error | null }> {
+export default function withSentry (Child: any): any {
+  return class WrappedComponent extends React.Component<{}, { error: Error | null }> {
     constructor (props) {
       super(props);
       this.state = {
@@ -13,7 +13,7 @@ export default function withSentry (Child) {
       };
       // 线上环境添加sentry监控
       if (typeof window !== 'undefined') {
-        if (!~window.location.href.indexOf('localhost')) {
+        if (!~window.location.href.indexOf('localhost') && process.env.NODE_ENV === 'production') {
           Raven.config(
             SENTRY_DSN, {
               environment: process.env.NODE_ENV  // sentry环境

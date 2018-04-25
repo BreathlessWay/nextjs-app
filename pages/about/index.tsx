@@ -5,7 +5,7 @@ import Layout from 'components/Layout/index';
 import withSentry from 'components/withSentry';
 import { Button } from 'antd-mobile';
 import { observer } from 'mobx-react';
-import withI18next from 'libs/withI18next';
+import withI18next from 'components/withI18next';
 
 interface PropsType {
   t: (query: string) => any,
@@ -14,8 +14,10 @@ interface PropsType {
   lastUpdate: number
 }
 
+@withSentry
+@withI18next(['home', 'common'])
 @observer
-class About extends React.Component<PropsType, {}> {
+export default class About extends React.Component<PropsType, {}> {
 
   store: StoreTypes;
 
@@ -34,7 +36,7 @@ class About extends React.Component<PropsType, {}> {
     const {t} = this.props;
     return (
       <Provider store={this.store}>
-        <Layout title="about">
+        <Layout title="about" t={t}>
           <Button onClick={this.handleClick}>获取数据</Button>
           <span>{t('welcome')}</span>
           <style jsx={true}>
@@ -52,6 +54,3 @@ class About extends React.Component<PropsType, {}> {
     this.store.getArticleList();
   };
 }
-
-export default withSentry(withI18next(['home', 'common'])(About));
-
