@@ -1,7 +1,7 @@
 const i18next = require('i18next');
 const XHR = require('i18next-xhr-backend');
 const LanguageDetector = require('i18next-browser-languagedetector');
-
+const isBrowser = typeof window !== 'undefined';
 const options = {
   fallbackLng: 'zh',
   load: 'languageOnly', // we only provide en, de -> no region specific locals like en-US, de-DE
@@ -10,7 +10,7 @@ const options = {
   ns: ['common'],
   defaultNS: 'common',
 
-  debug: process.env.NODE_ENV !== 'production',
+  debug: false,
   saveMissing: true,
 
   interpolation: {
@@ -25,7 +25,7 @@ const options = {
 const i18nInstance = i18next;
 
 // for browser use xhr backend to load translations and browser lng detector
-if (process.browser) {
+if (isBrowser) {
   i18nInstance
     .use(XHR)
     // .use(Cache)
