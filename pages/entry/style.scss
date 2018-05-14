@@ -1,0 +1,84 @@
+@import "../../style/var";
+
+.login-container {
+  background: #fff;
+  header {
+    width: 100%;
+  }
+  .login-container_banner {
+    max-width: 100%;
+  }
+  .login-content {
+    padding: 0 32.5px;
+  }
+  .am-list-body {
+    width: 100%;
+    overflow-x: hidden;
+    height: 350px;
+    border: none;
+    &::before {
+      display: none !important;
+    }
+    &::after {
+      display: none !important;
+    }
+    .am-list-line {
+      border: none !important;
+      &::before {
+        display: none !important;
+      }
+      &::after {
+        display: none !important;
+      }
+      .am-list-content {
+        font-size: 14px;
+        color: #15253C;
+      }
+    }
+  }
+  .am-list-item.am-input-item {
+    padding: 0;
+    border-bottom: $border-eee;
+    .am-list-line {
+      padding: 0;
+    }
+    .am-input-control input {
+      font-size: 20px;
+      &::-webkit-input-placeholder {
+        font-weight: 100;
+        color: #ccc;
+      }
+    }
+  }
+  .login-yzm_wrap {
+    max-width: 125px;
+    padding: 5px 0;
+    .login-yzm_btn {
+      background: none;
+      width: 100%;
+      height: 34px;
+      line-height: 32px;
+      border: $border-eee;
+      border-radius: $border-radius-100;
+      margin-bottom: -5px;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  .login-content_btn {
+    margin-top: 30px;
+    border-radius: $border-radius-100;
+  }
+  .login-container_change {
+    color: #0F82FF;
+    display: inline-block;
+  }
+  .login-container_back {
+    padding: 10px;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

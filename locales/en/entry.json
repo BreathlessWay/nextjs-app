@@ -1,0 +1,23 @@
+{
+  "one": "Telephone",
+  "two": "Please enter your phone number.",
+  "three": "Verification code",
+  "four": "Please enter the verification code.",
+  "five": "Get Code",
+  "six": "Login",
+  "seven": "Login with account",
+  "eight": "Account",
+  "nine": "Account, email or mobile phone number",
+  "ten": "Password",
+  "eleven": "Please enter password",
+  "twelve": "Login with verification code.",
+  "thirteen": "Login success",
+  "wrong": {
+    "one": "Please enter the correct phone number.",
+    "two": "Please enter the verification code.",
+    "three": "Please enter the account.",
+    "four": "Please enter the password",
+    "five": "Login fail",
+    "six": "Failed to get the verification code."
+  }
+}
