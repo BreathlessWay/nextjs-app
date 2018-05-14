@@ -1,1 +1,149 @@
 @import "../../style/var";
+
+.index-container {
+  padding-bottom: 60px;
+  .am-drawer {
+    position: fixed;
+    z-index: -100;
+  }
+  .index-header {
+    background: $bgColorFFF;
+    padding: 7px 18px;
+  }
+  .index-avatar_money {
+    font-size: 14px;
+    color: #15253C;
+    span {
+      font-size: 10px;
+      color: #B9BCC2;
+    }
+  }
+  .index-header_avatar {
+    width: 36px;
+    height: 36px;
+  }
+  .index-header_name {
+    font-size: $font-size + 1;
+    color: #44494C;
+  }
+  .index-header_menu {
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .index-tab {
+    margin: 27px 0 13px;
+    .am-flexbox-item {
+      text-align: center;
+      margin-bottom: 14px;
+      margin-left: 0;
+    }
+    .index-tab_img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 11px;
+    }
+    .index-tab_title {
+      font-size: $font-size - 4;
+      color: #757575;
+    }
+  }
+  .index-match, .index-activity {
+    padding: 0 10px;
+    .index-match_header {
+      width: 100%;
+    }
+    .index-match-header_icon {
+      width: 20px;
+      margin-right: 6px;
+    }
+    .index-match-header_title {
+      font-size: $font-size + 1;
+      color: $color-6;
+    }
+    .index-match_list {
+      -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+      padding: 15px 0;
+    }
+    .index-match_item {
+      overflow: hidden;
+      background: $bgColorFFF;
+      display: inline-block;
+      width: 300px;
+      border-radius: $border-radius-8;
+      border: $border;
+      box-shadow: 0 0 4px 0 rgba(182, 182, 182, 0.5);
+      .index-match_top {
+        padding: 15px 8px 14px;
+      }
+      & + .index-match_item {
+        margin-left: 10px;
+      }
+    }
+    .index-match_name {
+      font-size: $font-size - 3;
+      color: $color-8;
+      span:first-of-type {
+        margin-right: 12px;
+        color: #15253C;
+        max-width: 150px;
+      }
+    }
+    .index-match_middle {
+      width: 55px;
+      font-size: 12px;
+      color: #D0D3D8;
+    }
+    .index-match_team {
+      font-size: $font-size + 2;
+      color: $color-6;
+      span {
+        max-width: 98px;
+      }
+      span + img {
+        margin-left: 7px;
+      }
+      img ~ span {
+        margin-left: 7px;
+      }
+    }
+    .index-match_table {
+      margin-top: 14px;
+    }
+    .index-match_pl {
+      font-size: 10px;
+      color: $color-8;
+      padding: 11px 0;
+    }
+    .index-match_middle.text-center.index-match_pl {
+      margin: 0 10px;
+    }
+    .index-match_info {
+      background: $bgColorF8;
+      .am-flexbox-item {
+        padding: 9px 0;
+        font-size: $font-size - 2;
+        span {
+          color: $color-8;
+        }
+        i {
+          font-style: normal;
+          color: #F15B5B;
+        }
+        & + .am-flexbox-item {
+          border-left: $border;
+        }
+      }
+    }
+    .index-activity_list {
+      width: 100%;
+    }
+    .index-activity_item {
+      max-width: 100%;
+      margin-top: 14px;
+      border-radius: $border-radius-8;
+    }
+  }
+}

@@ -14,7 +14,7 @@ module.exports = {
     require('postcss-flexbugs-fixes'),
     require('postcss-pxtorem')(
       {
-        propList: ['font', 'font-size', 'line-height', 'letter-spacing'],
+        propList: ['font', 'font-size', 'line-height', 'letter-spacing', 'height'],
         rootValue: 16
       }
     )

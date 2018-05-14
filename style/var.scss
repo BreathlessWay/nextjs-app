@@ -1,22 +1,35 @@
+$max-width: 720px;
+
 $bgColorFFF: #fff;
 $bgColorF8: #f8f8f8;
 $bgColorE8: #E8E8E8;
+$bgColor75FB: #7583FB;
+$bgColorF3: #EFF0F3;;
 
 $link-color: #0F82FF;
 $color-8: #8493A8;
 $color-9: #999;
 $color-6: #666;
 $color-3: #333333;
+$color-3c: #15253C;
 $font-size: 14px;
 $font-style: normal;
 
 $border-width: 1px;
 $border-color: #E8E8E8;
+$border-color-eee: #EEE;
 $border-style: solid;
 $border: $border-width $border-style $border-color;
+$border-eee: $border-width $border-style $border-color-eee;
+
 
 $baseSpace: 10px;
 
 $border-radius-8: 8px;
+$border-radius-100: 100px;
 
-$theme-color: #3A0B90;
+
+// 讲堂主题
+$lecture-theme: #2D3859;
+$lecture-theme-color: #C2CCE7;;
+$theme-color: #7583FB;

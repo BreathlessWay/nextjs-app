@@ -2,7 +2,9 @@ import * as React from 'react';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import Head from 'next/head';
+import { shim } from 'promise.prototype.finally';
 
+shim();
 Router.onRouteChangeStart = (url) => {
   console.log(`Loading: ${url}`);
   NProgress.start();
@@ -10,9 +12,12 @@ Router.onRouteChangeStart = (url) => {
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
-export default (props: { title: string }) => (
-  <Head>
-    <title>{props.title}</title>
-    <meta name="description" content={props.title}/>
-  </Head>
-)
+export default (props: { title: string }) => {
+  console.log(props.title);
+  return (
+    <Head>
+      <title>{props.title}</title>
+      <meta name="description" content={props.title}/>
+    </Head>
+  );
+}

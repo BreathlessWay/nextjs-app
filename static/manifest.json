@@ -4,16 +4,22 @@
   "icons": [
     {
       "src": "icon/icon-29x29.png",
-      "sizes": "29x29",
-      "type": "image/png"
+      "type": "image/png",
+      "sizes": "29x29"
     },
     {
-      "src": "icon/icon-58x58.png",
-      "sizes": "58x58",
-      "type": "image/png"
+      "src": "icon/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "icon/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ],
   "start_url": "/",
-  "background_color": "#3A0B90",
+  "background_color": "#7583FB",
+  "theme_color": "#7583FB",
   "display": "standalone"
 }

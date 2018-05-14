@@ -10,3 +10,4 @@ locales/*/*.missing.json
 
 # 项目依赖
 node_modules/
+/.gitlab-ci.yml

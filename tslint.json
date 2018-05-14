@@ -24,6 +24,7 @@
     "jsx-no-lambda": false,
     "jsx-curly-spacing": false,
     "jsx-alignment": false,
-    "jsx-wrap-multiline": false
+    "jsx-wrap-multiline": false,
+    "member-ordering": false
   }
 }

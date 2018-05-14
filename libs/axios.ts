@@ -1,4 +1,7 @@
 import axios from 'axios';
+import qs from 'qs';
+import baseUrl from './baseUrl';
+import { serverSign } from './sign/sign';
 
 const baseConfig = {
   // `method` 是创建请求时使用的方法
@@ -6,21 +9,21 @@ const baseConfig = {
 
   // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
   // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
-  baseURL: 'https://cnodejs.org/api/v1',
+  baseURL: '',
 
   // `transformRequest` 允许在向服务器发送前，修改请求数据
   // 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法
   // 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
   transformRequest: [function (data) {
     // 对 data 进行任意转换处理
-
-    return JSON.stringify(data);
+    return qs.stringify(data);
   }],
 
-  // `headers` 是即将被发送的自定义请求头
+// `headers` 是即将被发送的自定义请求头
   headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type': 'application/json; charset=utf-8'
+    // 'X-Requested-With': 'XMLHttpRequest',
+    // 'Content-Type': 'application/json; charset=utf-8',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
   },
 
   // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
@@ -31,7 +34,7 @@ const baseConfig = {
   withCredentials: false, // 默认的
 
   // `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
-  responseType: 'json', // 默认的
+  // responseType: 'json', // 默认的
 
   // `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称
   xsrfCookieName: 'XSRF-TOKEN', // default
@@ -48,10 +51,43 @@ const baseConfig = {
   }
 };
 
-// 添加请求拦截器
-axios.interceptors.request.use(function (config) {
+for (let p in baseConfig) {
+  axios.defaults[p] = baseConfig[p];
+}
+
+axios.interceptors.request.use(async function (config) {
   // 在发送请求之前做些什么
-  config.url = `${config.url}?_t=${Date.now()}`;
+  if (~config.url.indexOf('/index.php?c=verifycode&a=getVerifyCode')) {
+    return config;
+  }
+  if (~config.url.indexOf('/soccer')) {
+    return config;
+  }
+  if (!~config.url.indexOf('/app/user/GetSalt')) {
+    if (typeof config.data !== 'string' && !config.data.sign && typeof config.data.data !== 'string') {
+      let postData;
+      if (typeof config.data === 'object') {
+        postData = {
+          ...{
+            'platform': 'android',
+            'market': 'yingyongbao',
+            'phone_type': 'SM-N7506V',
+            'android_type': 99,
+            'idfa': '2aea65a5-3cca-3e99-8560-f700733eb0c3',
+            'os_version': '4.3',
+            'versionNum': '3.31'
+          }, ...config.data
+        };
+      }
+      const sign = await axios.get(`${baseUrl.appHuan}/app/user/GetSalt`);
+      const {data, server_time} = sign.data;
+
+      config.data = {
+        sign: serverSign(server_time, data, postData),
+        data: JSON.stringify(postData)
+      };
+    }
+  }
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -66,9 +102,5 @@ axios.interceptors.response.use(function (response) {
   // 对响应错误做点什么
   return Promise.reject(error);
 });
-
-for (let p in baseConfig) {
-  axios.defaults[p] = baseConfig[p];
-}
 
 export default axios;

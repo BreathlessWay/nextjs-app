@@ -4,3 +4,6 @@ declare namespace NodeJS {
     browser: boolean;
   }
 }
+declare namespace wx {
+  function config (data: any): void
+}

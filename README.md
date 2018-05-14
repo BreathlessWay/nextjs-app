@@ -1,8 +1,7 @@
 ## Next.js
 
 ### 项目介绍
-next.js的项目框架，提供next.js  scss  typescript  mobx  axios  antd-mobile  express  i18next  postcss  sentry工具集成
-
+next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile express i18next postcss sentry工具集成
 
 安装依赖
 > npm install
@@ -19,7 +18,7 @@ next.js的项目框架，提供next.js  scss  typescript  mobx  axios  antd-mobi
 
 ## 技术文档
 
-1. [nextjs](https://learnnextjs.com/)，react的服务端渲染框架
+1. [nextjs](https://learnnextjs.com/),react的服务端渲染框架
 2. [typescript](https://www.tslang.cn/)，js的语言超集
 3. [mobx](http://cn.mobx.js.org/)，react的状态管理库
 4. [axios](https://www.kancloud.cn/yunye/axios/234845)，xmlhttprequest请求库
@@ -47,7 +46,21 @@ next.js的项目框架，提供next.js  scss  typescript  mobx  axios  antd-mobi
 
     3.1 getInitialProps: 初次加载组件，getInitialProps只会在服务端运行，不能访问到组件this，需要渲染的数据在此周期中请求，方法需要返回一个object，映射到组件到props中
     
-    3.2 constructor  componentWillMount  render在服务端可客户端均会执行，componentDidMount只会在客户端执行
+    3.2 constructor  getDerivedStateFromProps  render在服务端可客户端均会执行，componentDidMount只会在客户端执行
+    
+    3.3 For the initial page load, getInitialProps will execute on the server only. getInitialProps will only be executed on the client when navigating to a different route via the Link component or using the routing APIs.
+        
+        Note: getInitialProps can not be used in children components. Only in pages.
+    
+    3.4 getInitialProps参数
+    
+        pathname - path section of URL
+        query - query string section of URL parsed as an object
+        asPath - String of the actual path (including the query) shows in the browser
+        req - HTTP request object (server only)
+        res - HTTP response object (server only)
+        jsonPageRes - Fetch Response object (client only)
+        err - Error object if any error is encountered during the rendering
     
  4. 写在components中的样式表引入组件后不会生效，需要从外层目录引入(已解决，在next.config.js的cssLoaderOptions中添加includePaths)
  
@@ -57,4 +70,8 @@ next.js的项目框架，提供next.js  scss  typescript  mobx  axios  antd-mobi
  
  7. pxtorem：需要忽略的px将px大写P，比如`line-height: 13Px;`，该属性不会被转为rem
  
- 8. i18next/react-i18next：国际化，koa暂时无法实现，所以用express做服务端
+ 8. i18next/react-i18next：国际化，koa暂时无法实现，所以换回express
+ 
+ 9. manifest.json必须配置144X144的图片,图标尺寸的字段为 sizes 而不是 size !!，写错字段可能会导致添加到桌面的图标显示异常。
+ 
+ 10. 新增登录逻辑，将token相关持续登录字段存在cookie中，在服务端时可以通过req字段拿取，客户端直接通过document.cookie获取，之后在withPlugins中请求持续化登录接口，将接口信息同步到页面的props中
