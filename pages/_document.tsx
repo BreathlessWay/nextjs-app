@@ -9,7 +9,6 @@ export default class MyDocument extends Document {
     const node = <Fragment>
       {/*<script src="//cdn.bootcss.com/eruda/1.4.2/eruda.min.js"/>*/}
       {/*<script> eruda.init();</script>*/}
-      {/*<script src="http://192.168.20.82:8080/target/target-script-min.js#anonymous"/>*/}
       <script src="//cdn.bootcss.com/babel-polyfill/7.0.0-beta.46/polyfill.min.js"/>
     </Fragment>;
     return (
@@ -40,9 +39,6 @@ export default class MyDocument extends Document {
           process.env.NODE_ENV !== 'production' && node
         }
         <script src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"/>
-        <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"/>
-        <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"/>
-        <script src="/static/js/sha1.js"/>
         <script src="/static/js/fix.js"/>
       </Head>
       <body>

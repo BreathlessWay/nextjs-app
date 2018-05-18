@@ -9,14 +9,28 @@
           ]
         }
       }
-    ]
+    ],
+    "@zeit/next-typescript/babel"
   ],
+  "env": {
+    "production": {
+      "plugins": [
+        "transform-remove-console"
+      ]
+    }
+  },
   "plugins": [
     [
       "import",
       {
         "libraryName": "antd-mobile"
       }
+    ],
+    [
+      "transform-decorators-legacy"
+    ],
+    [
+      "transform-class-properties"
     ]
   ]
 }

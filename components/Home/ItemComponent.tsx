@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flex } from 'antd-mobile';
 
-export default class Index extends React.Component<{ item: { [propsName: string]: any } }, {}> {
+export default class ItemComponent extends React.Component<{ item: { [propsName: string]: any } }, {}> {
   render () {
     const {item} = this.props;
     return (

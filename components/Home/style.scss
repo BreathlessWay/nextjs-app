@@ -16,6 +16,7 @@
     margin-right: 17px;
   }
   .am-list-body {
+    border: 0;
     &::before {
       display: none !important;
     }
@@ -23,6 +24,7 @@
       display: none !important;
     }
     .am-list-item .am-list-line {
+      border: 0;
       &::after {
         display: none !important;
       }

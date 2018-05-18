@@ -34,6 +34,7 @@ class Store {
     return axios.post(`${baseUrl.appHuan}/app/userweb/vcLogin`, params)
       .then(res => {
         if (res.data.msg_code == '9004') {
+          console.log(res.data.data);
           const {winy_token, user_id, mf_token} = res.data.data;
           cookies.setCookie('login', {
             winy_token, user_id, mf_token

@@ -13,7 +13,6 @@ Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
 export default (props: { title: string }) => {
-  console.log(props.title);
   return (
     <Head>
       <title>{props.title}</title>

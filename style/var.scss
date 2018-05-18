@@ -4,7 +4,8 @@ $bgColorFFF: #fff;
 $bgColorF8: #f8f8f8;
 $bgColorE8: #E8E8E8;
 $bgColor75FB: #7583FB;
-$bgColorF3: #EFF0F3;;
+$bgColorF3: #EFF0F3;
+;
 
 $link-color: #0F82FF;
 $color-8: #8493A8;
@@ -22,14 +23,21 @@ $border-style: solid;
 $border: $border-width $border-style $border-color;
 $border-eee: $border-width $border-style $border-color-eee;
 
-
 $baseSpace: 10px;
 
 $border-radius-8: 8px;
 $border-radius-100: 100px;
 
-
 // 讲堂主题
 $lecture-theme: #2D3859;
-$lecture-theme-color: #C2CCE7;;
+$lecture-theme-color: #C2CCE7;
+;
 $theme-color: #7583FB;
+
+@mixin ellipsis-lines($lines) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+}

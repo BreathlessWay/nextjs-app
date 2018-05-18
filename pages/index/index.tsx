@@ -2,7 +2,6 @@ import './style.scss';
 import Layout from 'components/Layout';
 import { observer } from 'mobx-react';
 import { Flex, Drawer } from 'antd-mobile';
-import { StoreTypes } from 'store/entry';
 import withPlugins, { LoginPropTypes, prePropTypes } from 'components/withPlugins';
 import { storage } from 'libs/utils';
 import Link from 'next/link';
@@ -16,7 +15,7 @@ import dynamic from 'next/dynamic';
 
 const AddScreenComponent = dynamic(import('components/Home/AddScreenComponent') as Promise<any>, {ssr: false}) as any;
 
-interface PropType extends StoreTypes, I18n, LoginPropTypes {
+interface PropType extends I18n, LoginPropTypes {
   isServer: boolean;
   title: string;
   match: AnyProps;
@@ -74,14 +73,27 @@ export default class IndexPage extends Component<PropType, StateType> {
     return {isServer, match: res.data.data || {}};
   }
 
-  static getDerivedStateFromProps (props) {
-    console.log('getDerivedStateFromProps:', props.isServer, typeof window !== 'undefined');
-    return props;
+  static getDerivedStateFromProps (nextProps, prevState) {
+    console.log('getDerivedStateFromProps:', nextProps.isServer, typeof window !== 'undefined');
+    return nextProps;
   }
 
-  getSnapshotBeforeUpdate (props) {
-    console.log('getSnapshotBeforeUpdate:', props.isServer, typeof window !== 'undefined');
-    return props;
+  UNSAFE_componentWillMount () {
+    // New name for componentWillMount()
+    // Indicates that this method can be unsafe for async rendering.
+    // Prefer componentDidMount() instead.
+  }
+
+  UNSAFE_componentWillUpdate (nextProps, nextState) {
+    // New name for componentWillUpdate()
+    // Indicates that this method can be unsafe for async rendering.
+    // Prefer componentDidUpdate() instead.
+  }
+
+  UNSAFE_componentWillReceiveProps (nextProps) {
+    // New name for componentWillReceiveProps()
+    // Indicates that this method can be unsafe for async rendering.
+    // Prefer static getDerivedStateFromProps() instead.
   }
 
   componentDidMount () {

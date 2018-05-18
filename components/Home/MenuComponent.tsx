@@ -5,7 +5,7 @@ import { SelectTab } from '../TabComponent';
 import Router from 'next/router';
 import './style.scss';
 
-export default class Index extends React.Component<{ t: TypeT, active: SelectTab, entryStore: AnyProps, isLogin: boolean }, {}> {
+export default class MenuComponent extends React.Component<{ t: TypeT, active: SelectTab, entryStore: AnyProps, isLogin: boolean }, {}> {
   render () {
     const {t, active, entryStore: {avater = '', nick_name = '', money = 0, beanMoney = 0}, isLogin} = this.props;
     return (

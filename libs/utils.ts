@@ -15,7 +15,7 @@ export const storage = {
   },
   removeStorage (key: string) {
     try {
-      localStorage.removeItem('key');
+      localStorage.removeItem(key);
     } catch (e) {
       alert('请关闭无痕模式');
     }

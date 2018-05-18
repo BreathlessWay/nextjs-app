@@ -82,6 +82,11 @@ i18nInstance
         //   renderAndCache(req, res, '/');
         // });
 
+        process.env.NODE_ENV === 'production' && server.get('/service-worker.js', (req, res) => {
+          const filePath = path.join(basePath, '.next', '/service-worker.js');
+          app.serveStatic(req, res, filePath);
+        });
+
         // serve locales for client
         server.use('/locales', express.static(path.join(basePath, '/locales')));
 
@@ -94,32 +99,14 @@ i18nInstance
           return app.render(req, res, actualPage, queryParams);
         });
 
-        server.get('/zx/:id.html', (req, res) => {
-          const actualPage = '/zx/detail';
-          const queryParams = {id: req.params.id};
-          return renderAndCache(req, res, actualPage, queryParams);
-        });
-
-        server.get('/cube/detail/:id', (req, res) => {
-          const actualPage = '/cube/detail';
-          const queryParams = {id: req.params.id};
-          return renderAndCache(req, res, actualPage, queryParams);
-        });
-
-        server.get('/lecture/detail/:id', (req, res) => {
-          const actualPage = '/cube/detail';
-          const queryParams = {id: req.params.id};
-          return renderAndCache(req, res, actualPage, queryParams);
-        });
-
-        server.get('/member/info/:id', (req, res) => {
-          const actualPage = '/member/info';
+        server.get('/zx/:id', (req, res) => {
+          const actualPage = '/zx';
           const queryParams = {id: req.params.id};
           return renderAndCache(req, res, actualPage, queryParams);
         });
 
         server.get('*', (req, res) => {
-          return handle(req, res)
+          return handle(req, res);
         });
 
         server.listen(port, (err) => {

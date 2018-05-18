@@ -12,11 +12,9 @@ module.exports = {
       flexbox: 'no-2009'
     }),
     require('postcss-flexbugs-fixes'),
-    require('postcss-pxtorem')(
-      {
-        propList: ['font', 'font-size', 'line-height', 'letter-spacing', 'height'],
-        rootValue: 16
-      }
-    )
+    require('postcss-pxtorem')({
+      propList: ['font', 'font-size', 'line-height', 'letter-spacing'],
+      rootValue: 16
+    })
   ]
 };

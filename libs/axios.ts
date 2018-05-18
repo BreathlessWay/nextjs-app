@@ -28,7 +28,7 @@ const baseConfig = {
 
   // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
   // 如果请求话费了超过 `timeout` 的时间，请求将被中断
-  timeout: 20000,
+  timeout: 0,
 
   // `withCredentials` 表示跨域请求时是否需要使用凭证
   withCredentials: false, // 默认的
@@ -63,30 +63,32 @@ axios.interceptors.request.use(async function (config) {
   if (~config.url.indexOf('/soccer')) {
     return config;
   }
-  if (!~config.url.indexOf('/app/user/GetSalt')) {
-    if (typeof config.data !== 'string' && !config.data.sign && typeof config.data.data !== 'string') {
-      let postData;
-      if (typeof config.data === 'object') {
-        postData = {
-          ...{
-            'platform': 'android',
-            'market': 'yingyongbao',
-            'phone_type': 'SM-N7506V',
-            'android_type': 99,
-            'idfa': '2aea65a5-3cca-3e99-8560-f700733eb0c3',
-            'os_version': '4.3',
-            'versionNum': '3.31'
-          }, ...config.data
-        };
-      }
-      const sign = await axios.get(`${baseUrl.appHuan}/app/user/GetSalt`);
-      const {data, server_time} = sign.data;
+  if (~config.url.indexOf('/app/user/GetSalt')) {
+    return config;
+  }
 
-      config.data = {
-        sign: serverSign(server_time, data, postData),
-        data: JSON.stringify(postData)
+  if (typeof config.data !== 'string' && !config.data.sign && typeof config.data.data !== 'string') {
+    let postData;
+    if (typeof config.data === 'object') {
+      postData = {
+        ...{
+          'platform': 'android',
+          'market': 'yingyongbao',
+          'phone_type': 'SM-N7506V',
+          'android_type': 99,
+          'idfa': '2aea65a5-3cca-3e99-8560-f700733eb0c3',
+          'os_version': '4.3',
+          'versionNum': '3.31'
+        }, ...config.data
       };
     }
+    const sign = await axios.get(`${baseUrl.appHuan}/app/user/GetSalt`);
+    const {data, server_time} = sign.data;
+
+    config.data = {
+      sign: serverSign(server_time, data, postData),
+      data: JSON.stringify(postData)
+    };
   }
   return config;
 }, function (error) {

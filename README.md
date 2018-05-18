@@ -1,7 +1,8 @@
 ## Next.js
 
 ### 项目介绍
-next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile express i18next postcss sentry工具集成
+
+next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile express i18next postcss sentry service-work lru-cache工具集成
 
 安装依赖
 > npm install
@@ -18,10 +19,10 @@ next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile ex
 
 ## 技术文档
 
-1. [nextjs](https://learnnextjs.com/),react的服务端渲染框架
+1. [nextjs](https://learnnextjs.com/)，react的服务端渲染框架
 2. [typescript](https://www.tslang.cn/)，js的语言超集
 3. [mobx](http://cn.mobx.js.org/)，react的状态管理库
-4. [axios](https://www.kancloud.cn/yunye/axios/234845)，xmlhttprequest请求库
+4. [axios](https://www.kancloud.cn/yunye/axios/234845)，请求库
 5. [antd-mobile](https://mobile.ant.design/index-cn)，组件样式库
 6. [scss](https://www.sass.hk/)，css预处理器
 7. [express](http://www.expressjs.com.cn/)，服务启动
@@ -62,7 +63,7 @@ next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile ex
         jsonPageRes - Fetch Response object (client only)
         err - Error object if any error is encountered during the rendering
     
- 4. 写在components中的样式表引入组件后不会生效，需要从外层目录引入(已解决，在next.config.js的cssLoaderOptions中添加includePaths)
+ 4. 写在components中的样式表引入组件后不会生效，需要从外层目录引入(已解决，升级后解决)
  
  5. 目前rem布局的root-size是16px
  
@@ -70,8 +71,10 @@ next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile ex
  
  7. pxtorem：需要忽略的px将px大写P，比如`line-height: 13Px;`，该属性不会被转为rem
  
- 8. i18next/react-i18next：国际化，koa暂时无法实现，所以换回express
+ 8. i18next/react-i18next：国际化,koa暂时无法实现，所以换会express
  
  9. manifest.json必须配置144X144的图片,图标尺寸的字段为 sizes 而不是 size !!，写错字段可能会导致添加到桌面的图标显示异常。
  
- 10. 新增登录逻辑，将token相关持续登录字段存在cookie中，在服务端时可以通过req字段拿取，客户端直接通过document.cookie获取，之后在withPlugins中请求持续化登录接口，将接口信息同步到页面的props中
+ 10. 关于登录验证，登录在withPlugins中调用后，在每个通过withPlugins包装的页面中可以在组件的props中拿到user对象，包含登录后的用户信息
+ 
+ 11. 图片资源都需要通过require引入才会被处理

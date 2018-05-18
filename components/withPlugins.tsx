@@ -3,11 +3,9 @@ import Raven from 'raven-js';
 import 'style/common.scss';
 import { translate } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { initStore, StoreTypes } from '../store/entry';
-import { getReqCookie, cookies } from '../libs/utils';
-import { AnyProps } from '../types/interface';
-// import { Toast } from 'antd-mobile';
-// import Router from 'next/router';
+import { initStore, StoreTypes } from 'store/entry';
+import { getReqCookie, cookies } from 'libs/utils';
+import { AnyProps } from 'types/interface';
 
 const {getInitialProps, I18n} = require('../libs/i18n');
 const SENTRY_DSN = 'https://9fcaed89e70540b19b982dd0ba1a6a90@sentry.io/1192745';
@@ -68,6 +66,8 @@ const withSentry = (namespaces = ['common']) => (Child: any): any => {
           } catch (e) {
             isLogin = false;
             errMsg = e.message || '登录失败';
+            // 登录失败清楚cookie
+            isServer ? context.res.clearCookie('login') : cookie.removeCookie('login');
             console.log('Error:', e.message);
           }
         }
@@ -92,6 +92,20 @@ const withSentry = (namespaces = ['common']) => (Child: any): any => {
     componentDidCatch (error, errorInfo) {
       this.setState({error});
       Raven.captureException(error, {extra: errorInfo});
+    }
+
+    componentDidMount () {
+      console.log('withPlugins did mount');
+      if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          .then(registration => {
+            console.log('service worker registration successful');
+          })
+          .catch(err => {
+            console.warn('service worker registration failed', err.message);
+          });
+      }
     }
 
     render () {
