@@ -71,10 +71,16 @@ next.js的项目框架，提供next.js scss typescript mobx axios antd-mobile ex
  
  7. pxtorem：需要忽略的px将px大写P，比如`line-height: 13Px;`，该属性不会被转为rem
  
- 8. i18next/react-i18next：国际化,koa暂时无法实现，所以换会express
+ 8. i18next/react-i18next：国际化配合express
  
  9. manifest.json必须配置144X144的图片,图标尺寸的字段为 sizes 而不是 size !!，写错字段可能会导致添加到桌面的图标显示异常。
  
  10. 关于登录验证，登录在withPlugins中调用后，在每个通过withPlugins包装的页面中可以在组件的props中拿到user对象，包含登录后的用户信息
  
  11. 图片资源都需要通过require引入才会被处理
+ 
+ 12. 关于mobx：在getInitialProps中初始化的store会被stringified，所以只有属性，而且是非动态绑定的，其他store中方法均没有
+ 
+        `
+        Be aware that data that was used on the server (and provided via getInitialProps) will be stringified in order to rehydrate the client with it. That means, if you create a store that is, say, an ObservableMap and give it as prop to a page, then the server will render appropriately. But stringifying it for the client will turn the ObservableMap to an ordinary JavaScript object (which does not have Map-style methods and is not an observable). So it is better to create the store as a normal object and turn it into a Observable in the render() method. This way both sides have an Observable to work with.
+        `
