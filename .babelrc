@@ -3,10 +3,8 @@
     [
       "next/babel",
       {
-        "styled-jsx": {
-          "plugins": [
-            "styled-jsx-plugin-sass"
-          ]
+        "class-properties": {
+          "loose": true
         }
       }
     ],
@@ -21,16 +19,21 @@
   },
   "plugins": [
     [
+      "styled-jsx/babel",
+      {
+        "plugins": [
+          "styled-jsx-plugin-sass",
+          "styled-jsx-plugin-postcss"
+        ]
+      }
+    ],
+    [
       "import",
       {
         "libraryName": "antd-mobile"
       }
     ],
-    [
-      "transform-decorators-legacy"
-    ],
-    [
-      "transform-class-properties"
-    ]
+    "transform-decorators-legacy",
+    "transform-class-properties"
   ]
 }

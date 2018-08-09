@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observable } from 'mobx';
-import { InputItem, List, Button, Toast } from 'antd-mobile';
+import { List, Button, Toast, InputItem } from 'antd-mobile';
 import './style.scss';
 import { Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
@@ -20,19 +20,23 @@ interface PropTypes {
 @observer
 export default class AccountComponent extends React.Component<PropTypes> {
   @observable accountParams = {
-    account: '',
-    password: '',
+    account: '13127672375', // 13127672375
+    password: 'wsf123456', //  wsf123456
     onAccountError: false,
     onPasswordError: false
   };
   AccountInput;
 
   componentDidMount () {
+    $('.am-input-control input').focus((e) => {
+      $('.am-list-item.am-input-item').css({'border-color': '#eee'});
+      $(e.target).parents('.am-list-item.am-input-item').css({'border-color': '#333'});
+    });
     this.AccountInput.focus();
   }
 
   render () {
-    const {t} = this.props;
+    const {t, store: {loading}} = this.props;
     return (
       <Fragment>
         <Item>
@@ -63,7 +67,7 @@ export default class AccountComponent extends React.Component<PropTypes> {
           />
         </Item>
         <Item>
-          <Button type="primary" className="login-content_btn" onClick={this.handleLogin}>{t('six')}</Button>
+          <Button type="primary" className="login-content_btn" onClick={this.handleLogin} disabled={loading} loading={loading}>{t('six')}</Button>
         </Item>
       </Fragment>
     );
@@ -96,22 +100,15 @@ export default class AccountComponent extends React.Component<PropTypes> {
       return;
     }
     const data = {
-      'platform': 'android',
-      'passwd': md5(this.accountParams.password),
-      'username': this.accountParams.account,
-      'market': 'yingyongbao',
-      'phone_type': 'SM-N7506V',
-      'android_type': 0,
-      'idfa': '2aea65a5-3cca-3e99-8560-f700733eb0c3',
-      'os_version': '4.3',
-      'versionNum': '3.31'
+      'passwd': md5(this.accountParams.password.toLowerCase()),
+      'username': this.accountParams.account
     };
     this.props.store.loginWithAccount(data)
-      .then(() => {
-        Router.back();
-      })
-      .catch(err => {
-        Toast.fail(err.message || t('wrong.five'));
-      });
+        .then(() => {
+          Router.back();
+        })
+        .catch(err => {
+          Toast.fail(err.message || t('wrong.five'));
+        });
   };
 }

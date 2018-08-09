@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import baseUrl from './baseUrl';
+import { storage } from './utils';
 import { serverSign } from './sign/sign';
 
 const baseConfig = {
@@ -68,7 +69,7 @@ axios.interceptors.request.use(async function (config) {
   }
 
   if (typeof config.data !== 'string' && !config.data.sign && typeof config.data.data !== 'string') {
-    let postData;
+    let postData, sign, data, server_time;
     if (typeof config.data === 'object') {
       postData = {
         ...{
@@ -82,8 +83,22 @@ axios.interceptors.request.use(async function (config) {
         }, ...config.data
       };
     }
-    const sign = await axios.get(`${baseUrl.appHuan}/app/user/GetSalt`);
-    const {data, server_time} = sign.data;
+    if (typeof window !== 'undefined') {
+      sign = storage.getStorage('saltLite');
+      if (sign) {
+        data = sign.data;
+        server_time = sign.server_time;
+      } else {
+        sign = await axios.get(`${baseUrl.appHuan}/app/user/GetSalt`);
+        storage.setStorage('saltLite', sign.data);
+        data = sign.data.data;
+        server_time = sign.data.server_time;
+      }
+    } else {
+      sign = await axios.get(`${baseUrl.appHuan}/app/user/GetSalt`);
+      data = sign.data.data;
+      server_time = sign.data.server_time;
+    }
 
     config.data = {
       sign: serverSign(server_time, data, postData),

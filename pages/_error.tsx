@@ -1,201 +1,594 @@
 import React from 'react';
-import { AnyProps } from '../types/interface';
+import { AnyProps } from 'types/interface';
+import Link from 'next/link';
 
-export default class Error extends React.Component<{ statusCode: number }, {}> {
+export default class Error extends React.Component<{ statusCode: number, statusMessage: string }, {}> {
   static getInitialProps ({res, err}: AnyProps) {
-    const statusCode = res ? res.statusCode : err ? err.statusCode : null;
-    return {statusCode};
+    const statusCode = res ? res.statusCode : err ? err.statusCode : null,
+      statusMessage = res ? res.statusMessage : err ? err.statusMessage : null;
+    return {statusCode, statusMessage};
   }
 
   render () {
     return (
-      <section className="four-zero-four">
-        <div className="text-center">
-          <p className="four">
-            <span/>
-            <span/>
-            <span/>
-          </p>
-        </div>
-        <div className="text-center">
-          <p className="zero">
-            <span/>
-            <span/>
-            <span/>
-            <span/>
-          </p>
-        </div>
-        <div className="text-center">
-          <p className="four">
-            <span/>
-            <span/>
-            <span/>
-          </p>
-        </div>
+      <article id='error-page'>
+        <section className='error-wrap'>
+          <Link href='/'>
+            <div className="container pika">
+              <div className="pika-head">
+                <div className="pika-head-face">
+                  <div className="pika-eye pika-eye-left"/>
+                  <div className="pika-eye pika-eye-right"/>
+                  <div className="pika-nose"/>
+                  <div className="pika-mouth"/>
+                </div>
+                <div className="pika-ear pika-ear-left"/>
+                <div className="pika-ear pika-ear-right"/>
+              </div>
+              <div className="pika-body">
+                <div className="pika-body-body"/>
+                <div className="pika-arm pika-arm-left"/>
+                <div className="pika-arm pika-arm-right"/>
+                <div className="pika-leg pika-leg-left"/>
+                <div className="pika-leg pika-leg-right"/>
+                <div className="pika-tail"/>
+                <div className="strings">
+                  <div className="string"/>
+                  <div className="string"/>
+                </div>
+              </div>
+              <div className="balloons">
+                <div className="balloon cyan">
+                  <div className="string"/>
+                </div>
+                <div className="balloon red">
+                  <div className="string"/>
+                </div>
+                <div className="balloon pink">
+                  <div className="string"/>
+                </div>
+                <div className="balloon blue">
+                  <div className="string"/>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </section>
+        <p className='error-tips text-center'>
+          {this.props.statusCode}
+          <br/>
+          {this.props.statusMessage}
+        </p>
         <style jsx={true} global={true}>{`
-          html, body {
-            height: 100%;
-            background: linear-gradient(gray, silver);
-          }
-          .four-zero-four {
-            div {
-              width: 100%
+          @import 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300';
+          $black: #444;
+          $white: #fff;
+          $lavender-pink: #ffa5db;
+          $electric-blue: #6bf0ff;
+          $bleu: #388eff;
+
+          $primary-color: #f9ed7c;
+          $primary-color-dark: darken( $primary-color, 10% );
+          $primary-color-tint: lighten( $primary-color, 15% );
+          $secondary-color: #9c5200;
+          $accent-color: #e65a41;
+
+          $primary-font: "Roboto Condensed", sans-serif;
+
+          @mixin animateRotate($name, $end, $start: 0, $dur: 5s) {
+            animation-name: $name;
+            animation-duration: $dur;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+
+            @keyframes #{$name} {
+              0%, 100% { transform: rotate(#{$start}deg) }
+              50% { transform: rotate(#{$end}deg) }
             }
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap
           }
 
-          .four-zero-four p {
-            width: 10rem;
-            height: 10rem;
-            /*border: 1px dashed white;*/
-            display: inline-block;
+          * { box-sizing: border-box; }
+          #error-page{
             position: relative;
-            text-align: left
+          }
+          .error-tips {
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            color: #7583FB;
+            font-size: 18px;
+            line-height: 1.6
+          }
+          .error-wrap {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $primary-color-tint;
+            font-family: $primary-font;
+            font-size: 16px;
+            line-height: 1;
           }
 
-          .four-zero-four p span {
-            position: absolute;
-            box-sizing: border-box;
-            filter: opacity(0.8);
+          .pika {
+            position: relative;
+            animation-name: floaty;
             animation-duration: 5s;
             animation-timing-function: ease-in-out;
             animation-iteration-count: infinite;
-            animation-direction: alternate;
-            background-color: plum;
+
+            &-head {
+              position: relative;
+              z-index: 10;
+              height: 9rem;
+              width: 10rem;
+
+              &-face {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background-color: $primary-color;
+                overflow: hidden;
+                will-change: transform, opacity;
+
+                border: {
+                  top: {
+                    left-radius: 50% 4.5rem;
+                    right-radius: 50% 4.5rem;
+                  }
+                  bottom: {
+                    left-radius: 50% 3rem;
+                    right-radius: 50% 3rem;
+                  }
+                }
+
+                &::before,
+                &::after {
+                  content: '';
+                  position: absolute;
+                  bottom: 1.125rem;
+                  height: 1.5rem;
+                  width: 1.75rem;
+                  border-radius: 50%;
+                  background-color: $accent-color;
+                }
+
+                &::before {
+                  left: -0.25rem;
+                }
+
+                &::after {
+                  right: -0.25rem;
+                }
+              }
+            }
+
+            &-eye {
+              position: absolute;
+              background-color: $black;
+              bottom: 2.5rem;
+              height: 1.25rem;
+              width: 1.25rem;
+              overflow: hidden;
+              transform-origin: center 70%;
+              animation-name: blinky;
+              animation-duration: 7s;
+              animation-iteration-count: infinite;
+
+
+              border: {
+                top: {
+                  left-radius: 50%;
+                  right-radius: 50%;
+                }
+                bottom: {
+                  left-radius: 45% 50%;
+                  right-radius: 45% 50%;
+                }
+              }
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: 15%;
+                left: 15%;
+                height: 30%;
+                width: 30%;
+                background-color: $white;
+                border-radius: 50%;
+              }
+
+              &-left {
+                left: 1.5rem;
+              }
+
+              &-right {
+                right: 1.5rem;
+              }
+            }
+
+            &-nose {
+              position: absolute;
+              bottom: 2.5rem;
+              left: calc(50% - 0.125rem);
+              height: 0.125rem;
+              width: 0.25rem;
+              border-radius: 50%;
+              background-color: $black;
+            }
+
+            &-ear {
+              position: absolute;
+              top: -1rem;
+              height: 3.75rem;
+              width: 2rem;
+              background-color: $primary-color;
+              transform-origin: bottom center;
+              overflow: hidden;
+
+              border: {
+                top: {
+                  left-radius: 50% 3rem;
+                  right-radius: 50% 3rem;
+                }
+              }
+
+              &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 110%;
+                height: 45%;
+                background-color: $black;
+              }
+
+              &-left {
+                left: 0;
+                transform: rotate(-40deg);
+                @include animateRotate(rotateEarLeft, -35, -40);
+
+                &::before {
+                  transform-origin: bottom left;
+                  transform: rotate(-15deg)
+                }
+              }
+
+              &-right {
+                right: 0;
+                transform: rotate(40deg);
+                @include animateRotate(rotateEarRight, 35, 40);
+
+                &::before {
+                  transform-origin: bottom right;
+                  transform: rotate(15deg)
+                }
+              }
+            }
+
+            &-body {
+              position: absolute;
+              z-index: 9;
+              right: -2rem;
+              top: 35%;
+              height: 8rem;
+              width: 9rem;
+
+              .string {
+                position: absolute;
+                z-index: 6 !important;
+                bottom: 30%;
+                z-index: 9;
+                height: 1rem;
+                width: 9rem;
+                border-right: solid 1px $white;
+                border-left: solid 1px $white;
+                border-bottom: solid 1px $white;
+                transform: rotate(-15deg);
+
+                border: {
+                  bottom: {
+                    left-radius: 50% 1rem;
+                    right-radius: 50% 1rem;
+                  }
+                }
+
+                &:nth-child(2) {
+                  transform: rotate(-20deg);
+                }
+              }
+
+              &-body {
+                position: absolute;
+                z-index: 5;
+                height: 100%;
+                width: 100%;
+                background-color: $primary-color;
+                transform: skew(15deg);
+                overflow: hidden;
+
+                border: {
+                  top: {
+                    left-radius: 50% 5.5rem;
+                    right-radius: 50% 5.5rem;
+                  }
+                  bottom: {
+                    left-radius: 40% 2.5rem;
+                    right-radius: 40% 2.5rem;
+                  }
+                }
+
+                &::before,
+                &::after {
+                  content: '';
+                  position: absolute;
+                  width: 2rem;
+                  height: 0.75rem;
+                  background-color: $secondary-color;
+                  transform: skew(-15deg);
+                  transform-origin: right center;
+                  transform: rotate(-30deg);
+
+                  border: {
+                    top: {
+                      left-radius: 2rem 50%;
+                    }
+                    bottom: {
+                      left-radius: 2rem 50%;
+                    }
+                  }
+                }
+
+                &::before {
+                  right: -0.5rem;
+                  top: 2rem;
+                }
+
+                &::after {
+                  right: -1rem;
+                  top: 3rem;
+                }
+              }
+            }
+
+            &-arm {
+              position: absolute;
+              z-index: 9;
+              height: 1.5rem;
+              width: 1.25rem;
+              background-color: $primary-color-dark;
+              transform-origin: top center;
+
+              border: {
+                top: {
+                  left-radius: 0.25rem;
+                  right-radius: 0.25rem;
+                }
+                bottom: {
+                  left-radius: 3rem 5.5rem;
+                  right-radius: 3rem 5.5rem;
+                }
+              }
+
+              &-left {
+                top: 60%;
+                left: -0.5rem;
+                @include animateRotate(rotateLeft, 25);
+              }
+
+              &-right {
+                top: 60%;
+                left: 4.75rem;
+                @include animateRotate(rotateRight, -25);
+              }
+            }
+
+            &-leg {
+              position: absolute;
+              z-index: 1;
+              height: 1.75rem;
+              width: 1.25rem;
+              background-color: $primary-color-dark;
+              transform-origin: top center;
+
+              border: {
+                top: {
+                  left-radius: 0.25rem;
+                  right-radius: 0.25rem;
+                }
+                bottom: {
+                  left-radius: 3rem 5.5rem;
+                  right-radius: 3rem 5.5rem;
+                }
+              }
+
+              &-left {
+                top: calc(100% - 0.75rem);
+                left: 3rem;
+                @include animateRotate(rotateLeft, 25, 0, 2s);
+              }
+
+              &-right {
+                top: calc(100% - 0.75rem);
+                left: 7.5rem;
+                @include animateRotate(rotateRight, -25, 0, 2s);
+              }
+            }
+
+            &-tail {
+              position: absolute;
+              left: calc(100% - 0.75rem);
+              top: 40%;
+              height: 1.5rem;
+              width: 1rem;
+              background-color: $secondary-color;
+              transform-origin: bottom center;
+              transform: rotate(45deg);
+              @include animateRotate(rotateTail, 45, 55);
+
+              &::before,
+              &::after {
+                content: '';
+                position: absolute;
+                transform-origin: bottom center;
+                background-color: $primary-color;
+              }
+
+              &::before {
+                top: -2.5rem;
+                left: 0.25rem;
+                height: 2rem;
+                width: 1.5rem;
+                transform: rotate(-90deg);
+
+                border: {
+                  bottom: {
+                    right-radius: 0.5rem;
+                  }
+                }
+              }
+
+              &::after {
+                top: -2.75rem;
+                left: -2.5rem;
+                height: 3rem;
+                width: 2rem;
+
+                border: {
+                  bottom: {
+                    left-radius: 0.5rem;
+                  }
+                  top: {
+                    right-radius: 0.5rem;
+                    left-radius: 0.5rem;
+                  }
+                }
+              }
+            }
           }
 
-          .four span:nth-child(1) {
-            width: 20%;
-            height: 80%;
-            left: 10%;
-            background-color: yellowgreen;
-            animation-name: left0;
+          .balloons {
+            position: absolute;
+            left: 0;
+            top: -10rem;
           }
 
-          .four span:nth-child(2) {
-            width: 100%;
-            height: 20%;
-            bottom: 30%;
-            animation-name: bottom30;
-            background-color: turquoise;
-          }
+          .balloon {
+            position: absolute;
+            height: 6.25rem;
+            width: 6rem;
+            border-radius: 50%;
+            background-color: currentColor;
 
-          .four span:nth-child(3) {
-            width: 20%;
-            height: 100%;
-            right: 10%;
-            animation-name: right0;
-            background-color: pink;
-          }
+            &::before,
+            &::after {
+              content: '';
+              position: absolute;
+            }
 
-          .zero span:nth-child(1) {
-            width: 20%;
-            height: 100%;
-            left: 10%;
-            animation-name: left0;
-            background-color: skyblue;
-          }
-
-          .zero span:nth-child(2) {
-            width: 100%;
-            height: 20%;
-            top: 10%;
-            animation-name: top0;
-          }
-
-          .zero span:nth-child(3) {
-            width: 20%;
-            height: 100%;
-            right: 10%;
-            animation-name: right0;
-            background-color: lightcoral;
-          }
-
-          .zero span:nth-child(4) {
-            width: 100%;
-            height: 20%;
-            bottom: 10%;
-            animation-name: bottom10;
-            background-color: peachpuff;
-          }
-
-          @keyframes top0
-          {
-            0% {
-              top: 10%;
-             }
-            50% {
-              top: 0;
-              background-color: #fff;
-              filter: opacity(1);
-             }
-            100% {
-              top: 10%;
-             }
-          }
-          @keyframes left0
-          {
-            0% {
+            &::before {
+              top: 20%;
               left: 10%;
-             }
-            50% {
-              left: 0;
-              background-color: #fff;
-              filter: opacity(1);
-             }
-            100% {
-              left: 10%;
-             }
+              width: 15%;
+              height: 20%;
+              border-radius: 50%;
+              background-color: $white;
+            }
+
+            &::after {
+              bottom: -0.5rem;
+              left: calc(50% - 0.75rem);
+              height: 0.75rem;
+              width: 1.5rem;
+              background-color: currentColor;
+
+              border: {
+                top: {
+                  left-radius: 3rem;
+                  right-radius: 3rem;
+                }
+                bottom: {
+                  left-radius: 1rem;
+                  right-radius: 1rem;
+                }
+              }
+            }
+
+            &:nth-child(1) {
+              z-index: 4;
+
+              .string {
+                transform: rotate(-10deg);
+              }
+            }
+
+            &:nth-child(2) {
+              z-index: 5;
+              top: 2rem;
+              left: 4rem;
+
+              .string {
+                transform: rotate(10deg);
+              }
+            }
+
+            &:nth-child(3) {
+              top: 3rem;
+              left: -2rem;
+
+              .string {
+                transform: rotate(-25deg);
+              }
+            }
+
+            &:nth-child(4) {
+              top: 0.5rem;
+              left: 7rem;
+
+              .string {
+                transform: rotate(20deg);
+              }
+            }
+
+            .string {
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              height: 6rem;
+              border-left: solid 1px $white;
+              transform-origin: top center;
+            }
+
+            &.pink {
+              color: $lavender-pink;
+            }
+
+            &.cyan {
+              color: $electric-blue;
+            }
+
+            &.blue {
+              color: $bleu;
+            }
+
+            &.red {
+              color: $accent-color;
+            }
           }
-          @keyframes bottom10
-          {
-            0% {
-              bottom: 10%;
-             }
-            50% {
-              bottom: 0;
-              background-color: #fff;
-              filter: opacity(1);
-             }
-            100% {
-              bottom: 10%;
-             }
+
+          @keyframes floaty {
+            0%, 100% { transform: translateY(0) }
+            50% { transform: translateY(1rem) }
           }
-          @keyframes bottom30
-          {
-            0% {
-              bottom: 30%;
-             }
-            50% {
-              bottom: 80%;
-              background-color: #fff;
-              filter: opacity(1);
-             }
-            100% {
-              bottom: 30%;
-             }
-          }
-          @keyframes right0
-          {
-            0% {
-              right: 10%;
-             }
-            50% {
-              right: 0;
-              height: 80%;
-              background-color: #fff;
-              filter: opacity(1);
-             }
-            100% {
-              right: 10%;
-             }
+
+          @keyframes blinky {
+            0%, 9%, 11%, 19%, 21%, 69%, 71%, 100% { transform: scaleY(1) }
+            10%, 20%, 70% { transform: scaleY(0.1) }
           }
         `}</style>
-      </section>
+      </article>
     );
   }
 }

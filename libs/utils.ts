@@ -72,7 +72,7 @@ export const cookies = {
       alert('请关闭无痕模式');
     }
   },
-  setCookie (key: string, value: any, expireHours: number = 15 * 24) {
+  setCookie (key: string, value: any, expireHours: number = 30 * 24) {
     try {
       const secret = ecode(value);
       let cookieString = key + '=' + escape(secret);
@@ -80,7 +80,7 @@ export const cookies = {
       if (expireHours > 0) {
         const date = new Date();
         date.setTime(Date.now() + expireHours * 3600 * 1000);
-        cookieString = `${cookieString}; expires=${date.toUTCString()}; path=/`;
+        cookieString = `${cookieString}; expires=${date.toUTCString()}; path=/;`;
       }
       document.cookie = cookieString;
     } catch (e) {
@@ -117,3 +117,52 @@ export const getReqCookie = (cookie: string, key: string) => {
     console.log(e);
   }
 };
+
+export const typeOfBrowser = {
+  isAndroid () {
+    return Boolean(navigator.userAgent.match(/android/ig));
+  },
+  isIphone () {
+    return Boolean(navigator.userAgent.match(/iphone|ipod/ig));
+  },
+  isIpad () {
+    return Boolean(navigator.userAgent.match(/ipad/ig));
+  },
+  isWechat () {
+    return Boolean(navigator.userAgent.match(/MicroMessenger/ig));
+  },
+  isIphoneX () {
+    return this.isIphone() && (window.screen.height == 812 && window.screen.width == 375);
+  }
+};
+
+export const getDesc = (richContent) => {
+  richContent = richContent.replace(/(\n)/g, '');
+  richContent = richContent.replace(/(\t)/g, '');
+  richContent = richContent.replace(/(\r)/g, '');
+  richContent = richContent.replace(/<\/?[^>]*>/g, '');
+  richContent = richContent.replace(/\s*/g, '');
+  return richContent.substr(0, 120);
+};
+
+abstract class AbsQueryString {
+  public abstract getQuery (name: string): string
+}
+
+export class GetQueryString extends AbsQueryString {
+  private url = '';
+
+  constructor (url: string) {
+    super();
+    this.url = url;
+  }
+
+  public getQuery (name) {
+    if (this.url) {
+      const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      const r = this.url.split('?')[1].match(reg);
+      if (r != null) return (r[2]);
+    }
+    return '';
+  }
+}

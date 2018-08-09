@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observable } from 'mobx';
-import { Flex, InputItem, List, Button, Toast } from 'antd-mobile';
+import { Flex, List, Button, Toast, InputItem } from 'antd-mobile';
 import './style.scss';
 import { Fragment } from 'react';
 import { observer, inject } from 'mobx-react';
@@ -33,9 +33,16 @@ export default class TelComponent extends React.Component<PropTypes> {
     disabled: false,
     interval: null
   };
+  @observable disableBtn = false;
+  @observable loadingBtn = false;
   TelInput;
 
   componentDidMount () {
+
+    $('.am-input-control input').focus((e) => {
+      $('.am-list-item.am-input-item').css({'border-color': '#eee'});
+      $(e.target).parents('.am-list-item.am-input-item').css({'border-color': '#333'});
+    });
     this.TelInput.focus();
   }
 
@@ -52,7 +59,8 @@ export default class TelComponent extends React.Component<PropTypes> {
         </Item>
         <Item>
           <InputItem
-            type="phone"
+            type="number"
+            maxLength={11}
             value={this.telParams.telephone}
             placeholder={t('two')}
             clear={true}
@@ -79,7 +87,7 @@ export default class TelComponent extends React.Component<PropTypes> {
             </Flex.Item>
             <Flex.Item className="login-yzm_wrap">
               <Button size="small" className="login-yzm_btn" onClick={this.handleGetYzm}
-                      disabled={this.telParams.disabled}>{this.telParams.time > 0 ? `${this.telParams.time}s` : t('five')}</Button>
+                      disabled={this.telParams.disabled}>{this.telParams.time > 0 ? `${this.telParams.time}s后获取` : t('five')}</Button>
             </Flex.Item>
           </Flex>
         </Item>
@@ -109,28 +117,28 @@ export default class TelComponent extends React.Component<PropTypes> {
     this.telParams.disabled = true;
     const mp = this.telParams.telephone.replace(/\s/g, '');
     axios.post(`${baseUrl.apiCubee}/index.php?c=verifycode&a=getVerifyCode`, yzmSign({mp, 'vt': 3}))
-      .then(res => {
-        if (res.data.code === 0) {
-          this.telParams.time = 60;
-          this.telParams.interval = setInterval(() => {
-            if (this.telParams.time > 0) {
-              this.telParams.time--;
-            }
-            if (this.telParams.time === 0) {
-              this.telParams.disabled = false;
-              clearInterval(this.telParams.interval);
-              this.telParams.interval = null;
-            }
-          }, 1000);
-        } else {
-          this.telParams.disabled = false;
-          Toast.fail(t('wrong.six'));
-        }
-      })
-      .catch(err => {
-        Toast.fail(t('wrong.six'));
-        this.telParams.disabled = false;
-      });
+         .then(res => {
+           if (res.data.code === 0) {
+             this.telParams.time = 60;
+             this.telParams.interval = setInterval(() => {
+               if (this.telParams.time > 0) {
+                 this.telParams.time--;
+               }
+               if (this.telParams.time === 0) {
+                 this.telParams.disabled = false;
+                 clearInterval(this.telParams.interval);
+                 this.telParams.interval = null;
+               }
+             }, 1000);
+           } else {
+             this.telParams.disabled = false;
+             Toast.fail(t('wrong.six'));
+           }
+         })
+         .catch(err => {
+           Toast.fail(t('wrong.six'));
+           this.telParams.disabled = false;
+         });
   };
 
   private handleLogin = () => {
@@ -150,13 +158,12 @@ export default class TelComponent extends React.Component<PropTypes> {
       return;
     }
     const account = this.telParams.telephone.replace(/\s/g, '');
-
     this.props.store.loginWithTel({account, vc: this.telParams.yzm})
-      .then(() => {
-        Router.back();
-      })
-      .catch(err => {
-        Toast.fail(t('wrong.five'));
-      });
+        .then(() => {
+          Router.back();
+        })
+        .catch(err => {
+          Toast.fail(t('wrong.five'));
+        });
   };
 }

@@ -56,8 +56,8 @@ const getInitialProps = (req, namespaces) => {
   };
 };
 
-module.exports = {
+export const I18n = i18next.default;
+export {
   getInitialProps,
-  i18nInstance,
-  I18n: i18next.default
+  i18nInstance
 };
